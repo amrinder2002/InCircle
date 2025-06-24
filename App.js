@@ -1,22 +1,55 @@
-import { Text, SafeAreaView, StyleSheet } from 'react-native';
+import React from 'react';
+import { SafeAreaView, StyleSheet, ScrollView } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 
-// You can import supported modules from npm
-import { Card } from 'react-native-paper';
-
-// or any files within the Snack
-import AssetExample from './components/AssetExample';
 import Header from './components/Header';
+import TokenScroller from './components/TokenScroller';
+import ListingCard from './components/ListingCard';
+
+const tokens = [
+  { id: 1, text: 'Need 3BHK in Thane up to \u20B91.2 Cr' },
+  { id: 2, text: 'Looking for office space in Pune' },
+  { id: 3, text: 'Plot near Bengaluru 2000 sqft' },
+];
+
+const listings = [
+  {
+    id: 1,
+    image: 'https://placekitten.com/640/360',
+    title: 'Modern Family House',
+    price: '\u20B92.5 Cr',
+    area: '1500 sqft',
+    location: 'Mumbai',
+  },
+  {
+    id: 2,
+    image: 'https://placekitten.com/641/360',
+    title: 'Urban Apartment',
+    price: '\u20B91.8 Cr',
+    area: '900 sqft',
+    location: 'Pune',
+  },
+  {
+    id: 3,
+    image: 'https://placekitten.com/642/360',
+    title: 'Cozy Cottage',
+    price: '\u20B91.2 Cr',
+    area: '800 sqft',
+    location: 'Bangalore',
+  },
+];
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
-      <Text style={styles.paragraph}>
-        hello my name is amar
-      </Text>
-      <Card>
-        <AssetExample />
-      </Card>
+      <TokenScroller tokens={tokens} />
+      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
+        {listings.map((l) => (
+          <ListingCard key={l.id} listing={l} />
+        ))}
+      </ScrollView>
+      <StatusBar style="light" />
     </SafeAreaView>
   );
 }
@@ -24,15 +57,12 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'flex-start',
-    backgroundColor: '#ecf0f1',
+    backgroundColor: '#0F172A',
     paddingTop: 60,
-    padding: 8,
+    paddingHorizontal: 12,
   },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
+  scroll: {
+    paddingTop: 8,
+    paddingBottom: 24,
   },
 });
