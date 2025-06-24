@@ -11,8 +11,10 @@ export default function Header() {
 
 const styles = StyleSheet.create({
   container: {
-    position: 'sticky',
+    position: 'absolute',
     top: 0,
+    left: 0,
+    right: 0,
     width: '100%',
     backgroundColor: '#0F172A',
     shadowColor: '#000',
