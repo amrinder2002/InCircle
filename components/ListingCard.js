@@ -1,10 +1,10 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-export default function ListingCard({ listing }) {
+export default function ListingCard({ listing, onPress }) {
   if (!listing) return null;
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={onPress}>
       <Image source={{ uri: listing.image }} style={styles.image} />
       <View style={styles.info}>
         <Text style={styles.title}>{listing.title}</Text>
