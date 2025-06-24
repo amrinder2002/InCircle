@@ -5,10 +5,12 @@ import { Card } from 'react-native-paper';
 
 // or any files within the Snack
 import AssetExample from './components/AssetExample';
+import Header from './components/Header';
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
+      <Header />
       <Text style={styles.paragraph}>
         hello my name is amar
       </Text>
@@ -24,6 +26,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#ecf0f1',
+    paddingTop: 60,
     padding: 8,
   },
   paragraph: {
