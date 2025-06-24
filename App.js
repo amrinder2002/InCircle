@@ -1,3 +1,6 @@
++4
+-1
+
 import { Text, SafeAreaView, StyleSheet } from 'react-native';
 
 // You can import supported modules from npm
@@ -25,6 +28,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
+    justifyContent: 'flex-start',
     backgroundColor: '#ecf0f1',
     paddingTop: 60,
     padding: 8,
