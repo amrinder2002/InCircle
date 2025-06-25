@@ -1,0 +1,311 @@
+Error handling
+Edit this page
+Learn how to handle unmatched routes and errors in your app when using Expo Router.
+Edit this page
+This guide specifies how to handle unmatched routes and errors in your app when using Expo Router.
+
+
+Unmatched routes
+
+
+
+
+Native apps don't have a server so there are technically no 404s. However, if you're implementing a router universally, then it makes sense to handle missing routes. This is done automatically for each app, but you can also customize it.
+
+
+app/+not-found.tsx
+Copy
+import
+ 
+{
+ 
+Unmatched
+ 
+}
+ 
+from
+ 
+'expo-router'
+;
+
+
+export
+ 
+default
+ 
+Unmatched
+;
+
+
+
+
+This will render the default 
+Unmatched
+. You can export any component you want to render instead. We recommend having a link to 
+/
+ so users can navigate back to the home screen.
+
+
+Route priority
+
+
+On web, files are served in the following order:
+
+
+
+
+Static files in the 
+public
+ directory.
+
+
+Standard and dynamic routes in the app directory.
+
+
+API routes
+ in the app directory.
+
+
+Not-found routes will be served last with a 404 status code.
+
+
+
+
+Error handling
+
+
+Expo Router enables fine-tuned error handling to enable a more opinionated data-loading strategy in the future.
+
+
+
+
+You can export a nested 
+ErrorBoundary
+ component from any route to intercept and format component-level errors using 
+React Error Boundaries
+:
+
+
+
+
+app/home.tsx
+Copy
+import
+ 
+{
+ 
+View
+,
+ 
+Text
+ 
+}
+ 
+from
+ 
+'react-native'
+;
+
+
+import
+ 
+{
+ 
+type
+ 
+ErrorBoundaryProps
+ 
+}
+ 
+from
+ 
+'expo-router'
+;
+
+
+
+export
+ 
+function
+ 
+ErrorBoundary
+(
+{
+ error
+,
+ retry 
+}
+:
+ 
+ErrorBoundaryProps
+)
+ 
+{
+
+  
+return
+ 
+(
+
+    
+<
+View
+ 
+style
+=
+{
+{
+ flex
+:
+ 
+1
+,
+ backgroundColor
+:
+ 
+"red"
+ 
+}
+}
+>
+
+      
+<
+Text
+>
+{
+error
+.
+message
+}
+</
+Text
+>
+
+      
+<
+Text
+ 
+onPress
+=
+{
+retry
+}
+>
+Try Again?
+</
+Text
+>
+
+    
+</
+View
+>
+
+  
+)
+;
+
+
+}
+
+
+
+export
+ 
+default
+ 
+function
+ 
+Page
+(
+)
+ 
+{
+ 
+...
+ 
+}
+
+
+
+
+When you export an 
+ErrorBoundary
+ the route will be wrapped with a React Error Boundary effectively:
+
+
+Virtual
+Copy
+function
+ 
+Route
+(
+{
+ 
+ErrorBoundary
+,
+ 
+Component
+ 
+}
+)
+ 
+{
+
+  
+return
+ 
+(
+
+    
+<
+Try
+ 
+catch
+=
+{
+ErrorBoundary
+}
+>
+
+      
+<
+Component
+ 
+/>
+
+    
+</
+Try
+>
+
+  
+)
+;
+
+
+}
+
+
+
+
+When 
+ErrorBoundary
+ is not present, the error will be thrown to the nearest parent's 
+ErrorBoundary
+ and accepts 
+error
+ and 
+retry
+ props.
+
+
+Work in progress
+
+
+React Native LogBox needs to be presented less aggressively to develop with errors. Currently, it shows for 
+console.error
+ and 
+console.warn
+. However, it should ideally only show for uncaught errors.
